@@ -38,7 +38,6 @@ Zdarzenia sprzedaży są generowane w czasie rzeczywistym, przetwarzane w **Azur
 
 ### 🟤 Bronze Layer
 - Surowe zdarzenia z Azure Event Hubs  
-- Minimalna transformacja danych  
 - Dane przechowywane w formacie **Delta Lake**
 
 ### ⚪ Silver Layer
@@ -46,7 +45,7 @@ Zdarzenia sprzedaży są generowane w czasie rzeczywistym, przetwarzane w **Azur
 - Metryki:
   - `total_qty`
   - `total_revenue`
-- Obsługa pól `eventTime` oraz `ingest_time`
+- Obsługa pól `eventTime`
 
 ### 🟡 Gold Layer
 - **Daily batch analytics**
@@ -117,14 +116,27 @@ System wykorzystuje **Azure Monitor** oraz **Log Analytics** do monitorowania kl
 - GitHub Actions  
 
 ---
+##Uruchomienie projektu
 
-## ✅ Status projektu
+W pierszej kolejności należy utworzyć zasoby włączając terminal z poziomu katalogu w którym zawarte są kody do utworzenia zasobów. 
+Następnie uruchamiamy komenda:
+- terrafrom init
+- terraform plan (Podając hasło do PostgreSQL np. PgSales2025)
+- terraform apply
 
-✔ Real-time ingest danych  
-✔ Streaming analytics  
-✔ Batch analytics  
-✔ Stock-out detection  
-✔ SQL analytics (PostgreSQL)  
-✔ Monitoring i alerting  
+Następnym krokiem jest utworzenie kontenerów w storage(robimy to ręcznie w Azure):
+- bronze
+- silver
+- gold
+- checkpoints
 
-**Projekt zakończony.**
+Następnym krokiem jest uruchomienie pliki z Pythona.
+W tym celu odpalamy konsole i następnie:
+- $env:EVENTHUB_CONNECTION_STRING="Endpoint=sb://..." (tu wklejamy connection string z Azura)
+- $env:EVENTHUB_NAME="sales-events"
+- python C:\Users\cypri\OneDrive\Pulpit\chmury\skrypt_projekt\skrypt.py (uruchomienie kodu)
+
+Od tej pory postępujemy zgodnie z kodem zawartym w Databricks.
+
+
+
