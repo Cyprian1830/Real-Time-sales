@@ -1,15 +1,11 @@
-# =========================
-# RANDOM SUFFIX (NAZWY)
-# =========================
+
 resource "random_string" "pg_suffix" {
   length  = 6
   upper   = false
   special = false
 }
 
-# =========================
-# POSTGRESQL FLEXIBLE SERVER
-# =========================
+
 resource "azurerm_postgresql_flexible_server" "pg" {
   name                = "pg-sales-${random_string.pg_suffix.result}"
   resource_group_name = azurerm_resource_group.rg.name
@@ -32,18 +28,14 @@ resource "azurerm_postgresql_flexible_server" "pg" {
   }
 }
 
-# =========================
-# DATABASE
-# =========================
+
 resource "azurerm_postgresql_flexible_server_database" "db" {
   name      = "salesanalytics"
   server_id = azurerm_postgresql_flexible_server.pg.id
   charset   = "UTF8"
 }
 
-# =========================
-# FIREWALL – DEV / LAB ONLY
-# =========================
+
 resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_all" {
   name             = "allow-all-dev"
   server_id        = azurerm_postgresql_flexible_server.pg.id
@@ -51,9 +43,7 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_all" {
   end_ip_address   = "255.255.255.255"
 }
 
-# =========================
-# OUTPUTS
-# =========================
+
 output "postgres_server_name" {
   value = azurerm_postgresql_flexible_server.pg.name
 }
@@ -69,3 +59,4 @@ output "postgres_database" {
 output "postgres_user" {
   value = azurerm_postgresql_flexible_server.pg.administrator_login
 }
+
