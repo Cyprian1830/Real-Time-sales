@@ -1,14 +1,19 @@
-name: Terraform Azure Deploy
+name: Terraform CI
 
 on:
   push:
     branches:
       - main
+  pull_request:
   workflow_dispatch:
 
 jobs:
   terraform:
+    name: Terraform Validate & Plan
     runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_postgres_admin_password: ${{ secrets.POSTGRES_ADMIN_PASSWORD }}
 
     steps:
       - name: Checkout repository
@@ -22,11 +27,11 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Plan
         run: terraform plan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
