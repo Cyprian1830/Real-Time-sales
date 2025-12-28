@@ -1,6 +1,4 @@
-########################################
-# LOG ANALYTICS WORKSPACE
-########################################
+
 
 resource "azurerm_log_analytics_workspace" "law" {
   name                = "law-sales-analytics"
@@ -16,9 +14,7 @@ resource "azurerm_log_analytics_workspace" "law" {
   }
 }
 
-########################################
-# EVENT HUBS -> LOG ANALYTICS
-########################################
+
 
 resource "azurerm_monitor_diagnostic_setting" "eventhub_diag" {
   name                       = "eventhub-diagnostics"
@@ -35,9 +31,7 @@ resource "azurerm_monitor_diagnostic_setting" "eventhub_diag" {
   }
 }
 
-########################################
-# ALERT – BRAK ZDARZEŃ (INGEST ISSUE)
-########################################
+
 
 resource "azurerm_monitor_metric_alert" "eventhub_no_incoming" {
   name                = "alert-eventhub-no-incoming"
@@ -59,3 +53,4 @@ resource "azurerm_monitor_metric_alert" "eventhub_no_incoming" {
 
   enabled = true
 }
+
