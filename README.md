@@ -116,7 +116,7 @@ System wykorzystuje **Azure Monitor** oraz **Log Analytics** do monitorowania kl
 - GitHub Actions  
 
 ---
-##Uruchomienie projektu
+## Uruchomienie projektu
 
 W pierszej kolejności należy utworzyć zasoby włączając terminal z poziomu katalogu w którym zawarte są kody do utworzenia zasobów. 
 Następnie uruchamiamy komenda:
